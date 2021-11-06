@@ -8,7 +8,6 @@ const getAxios = function (url, api, callback) {
     .then((res, req) => {
       callback(res);
     })
-
     .catch((err) => {
       console.log(err);
     });

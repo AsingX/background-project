@@ -1,24 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useRef, } from 'react';
 import { Card, Form, Input, Button, Checkbox, message } from 'antd'
 import { useHistory } from "react-router-dom"
+import { loginAsync, login } from '../../redux/actions/login'
+import { connect } from 'react-redux'
+import { postAxios } from "../../utils/axios";
 import './index.scss'
-import { postAxios } from '../../utils/axios'
 
-const Login = function () {
-    useEffect(() => {
-       
-    }, [])
+
+const Login = function (props) {
+    let goToHome = useRef(useHistory())
 
     const onFinish = (values) => {
-        console.log('Success:', values);
         postAxios('login', '/api1', values, (data) => {
             if (data.data) {
-                
+                props.login(data.data)
+                goToHome.current.push('/home')//跳转首页
             } else {
                 message.error('用户名或密码错误');
             }
         })
-
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -70,5 +70,9 @@ const Login = function () {
     )
 }
 
+export default connect((state) => ({ loginData: state.login }),
+    { loginAsync, login })(Login)
 
-export default Login;
+
+
+
