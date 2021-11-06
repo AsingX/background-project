@@ -1,15 +1,24 @@
-import Home from './pages/Home'
-import Login from './pages/Login'
-import { Switch, Route } from "react-router-dom";
-import 'antd/dist/antd.css';
+import loadable from "@loadable/component";
+import React, { Component } from "react";
+import { HashRouter, Route, Switch } from "react-router-dom";
+//引入点击事件
 
-function App() {
-  return <div>
-    <Switch>
-      <Route path='/login' component={Login}></Route>
-      <Route path='/Home' component={Home}></Route>
-    </Switch>
-  </div>
+//路由的懒加载
+const Admin = loadable(() => import("./pages/Admin"));
+const Login = loadable(() => import("./pages/Login"));
+
+export default class Root extends Component {
+    render() {
+        return (
+            // 以哈希路径为router
+            <>
+                <HashRouter>
+                    <Switch>
+                        <Route path="/login" component={Login} />
+                        <Route path="/" component={Admin} />
+                    </Switch>
+                </HashRouter>
+            </>
+        );
+    }
 }
-
-export default App;

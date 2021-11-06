@@ -1,6 +1,9 @@
-/**
- * 该模块用于定义action对象中type类型的常量值
- */
-
+/* 常量*/
+//count常量
 export const INCREMENT = "increment";
 export const DECREMENT = "decrement";
+
+//person常量
+export const ADD_PERSON = "add_person";
+
+export const LOGIN = "login";

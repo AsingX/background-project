@@ -1,12 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
 import "antd/dist/antd.css";
-
 import "sass";
-
-import Root from "./router/index";
-
+// import Root from "./router/index";
+import App from "./App";
 //用于调取store,使用Provider将其传递给所有的组件
 import store from "./redux/store";
 
@@ -16,7 +13,7 @@ import { Provider } from "react-redux";
 ReactDOM.render(
   // 使用时将Provider包裹app组件
   <Provider store={store}>
-    <Root />
+    <App />
   </Provider>,
   document.getElementById("root")
 );
