@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 import { postAxios } from "../../utils/axios";
 import './index.scss'
 
-
 const Login = function (props) {
     let goToHome = useRef(useHistory())
 
@@ -14,7 +13,7 @@ const Login = function (props) {
         postAxios('login', '/api1', values, (data) => {
             if (data.data) {
                 props.login(data.data)
-                goToHome.current.push('/home')//跳转首页
+                goToHome.current.push('/')//跳转首页
             } else {
                 message.error('用户名或密码错误');
             }
