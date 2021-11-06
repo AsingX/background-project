@@ -4,7 +4,7 @@ import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 //引入点击事件
 
 //路由的懒加载
-const Home = loadable(() => import("../pages/Home"));
+const Home = loadable(() => import("../pages/Home/index.jsx"));
 const Login = loadable(() => import("../pages/Login"));
 
 export default class Root extends Component {
@@ -16,7 +16,7 @@ export default class Root extends Component {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/home" component={Home} />
-            <Redirect from="/*" to="/login"></Redirect>
+            {/* <Redirect to="/login"></Redirect> */}
           </Switch>
         </HashRouter>
       </>
