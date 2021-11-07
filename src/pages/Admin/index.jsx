@@ -2,28 +2,39 @@ import React, { Component } from "react";
 import loadable from "@loadable/component";
 import { Route, Switch } from "react-router-dom";
 import "./index.css";
+import { withRouter } from 'react-router-dom'
 
 import { Layout, Menu, Avatar, Col, Row, Button } from "antd";
 import {
-  AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  ShopOutlined,
-  TeamOutlined,
   UserOutlined,
-  UploadOutlined,
-  VideoCameraOutlined,
+  HomeOutlined,
+  ToolOutlined,
+  SafetyOutlined,
+  AreaChartOutlined,
+  BarsOutlined,
+  BarChartOutlined,
+  LineChartOutlined,
+  PieChartOutlined,
 } from "@ant-design/icons";
 
 const Home = loadable(() => import("./Home"));
 const User = loadable(() => import("./User"));
 const Category = loadable(() => import("./Category"));
 const Product = loadable(() => import("./Product"));
+const Role = loadable(() => import("./Role"));
 
+const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
+class Admin extends Component {
 
-export default class index extends Component {
+  onPath = (url) => {
+    this.props.history.push(url);
+  }
+
+  state = {
+    collapsed: false,
+  };
 
   render() {
     return (
@@ -56,27 +67,38 @@ export default class index extends Component {
               </h1>
             </Col>
           </Row>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={["4"]}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-              首页
-            </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              商品
-            </Menu.Item>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-              用户管理
-            </Menu.Item>
-            <Menu.Item key="4" icon={<BarChartOutlined />}>
-              角色管理
-            </Menu.Item>
-            <Menu.Item key="5" icon={<CloudOutlined />}>
-             图表图形
-            </Menu.Item>
-            <Menu.Item key="6" icon={<AppstoreOutlined />}>
-              订单管理
-            </Menu.Item>
-           
-          </Menu>
+
+          <div style={{ width: 256 }}>
+
+            <Menu
+              defaultSelectedKeys={['1']}
+              defaultOpenKeys={['sub1']}
+              mode="inline"
+              theme="dark"
+            >
+
+              <Menu.Item key="1" icon={<HomeOutlined />} onClick={this.onPath.bind(this, '/home')}>
+                首页
+              </Menu.Item>
+              <SubMenu key="sub6" icon={<AreaChartOutlined />} title="商品">
+                <Menu.Item icon={<BarsOutlined />} key="61" onClick={this.onPath.bind(this, '/category')} >品类管理</Menu.Item>
+                <Menu.Item icon={<ToolOutlined />} key="62" onClick={this.onPath.bind(this, '/product')} >商品管理</Menu.Item>
+              </SubMenu>
+              <Menu.Item key="3" icon={<UserOutlined />} onClick={this.onPath.bind(this, '/user')} >
+                用户管理
+              </Menu.Item>
+
+              <Menu.Item key="4" icon={<SafetyOutlined />} onClick={this.onPath.bind(this, '/role')}>
+                角色管理
+              </Menu.Item>
+              <SubMenu key="sub5" icon={<AreaChartOutlined />} title="图表图形">
+                <Menu.Item icon={<BarChartOutlined />} key="51">柱形图</Menu.Item>
+                <Menu.Item icon={<LineChartOutlined />} key="52">折线图</Menu.Item>
+                <Menu.Item icon={<PieChartOutlined />} key="53">饼图</Menu.Item>
+              </SubMenu>
+            </Menu>
+          </div>
+
         </Sider>
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
           <Header className="site-layout-background" style={{ padding: 0, lineHeight: "normal" }}>
@@ -109,7 +131,7 @@ export default class index extends Component {
                 <Route path="/user" component={User} />
                 <Route path="/category" component={Category} />
                 <Route path="/product" component={Product} />
-
+                <Route path="/role" component={Role} />
               </Switch>
 
 
@@ -129,3 +151,5 @@ export default class index extends Component {
     );
   }
 }
+
+export default withRouter(Admin)
