@@ -125,7 +125,6 @@ class Admin extends Component {
               style={{ padding: 24, textAlign: "center" }}
             >
 
-
               <Switch>
                 <Route path="/home" component={Home} />
                 <Route path="/user" component={User} />
@@ -133,9 +132,6 @@ class Admin extends Component {
                 <Route path="/product" component={Product} />
                 <Route path="/role" component={Role} />
               </Switch>
-
-
-
 
             </div>
           </Content>

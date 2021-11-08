@@ -2,7 +2,8 @@
 import { UPDATE_STATUS } from "../constant";
 
 //默认值
-export default function loginReducer(preState = {}, action) {
+const init = { status: 0 };
+export default function updateStatusReducer(preState = init, action) {
   //解构获取action里的{type、data}
   const { type, data } = action;
 

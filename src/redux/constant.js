@@ -7,3 +7,7 @@ export const DECREMENT = "decrement";
 export const ADD_PERSON = "add_person";
 
 export const LOGIN = "login";
+export const GOODS = "goods";
+export const UPDATE_STATUS = "updateStatus";
+
+
