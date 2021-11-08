@@ -1,7 +1,6 @@
 import loadable from "@loadable/component";
 import React, { Component } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
-//引入点击事件
 
 //路由的懒加载
 const Admin = loadable(() => import("./pages/Admin"));

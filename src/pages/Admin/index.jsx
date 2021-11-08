@@ -6,14 +6,12 @@ import "./index.css";
 import { Layout, Menu, Avatar, Col, Row, Button } from "antd";
 import {
   AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  ShopOutlined,
-  TeamOutlined,
-  UserOutlined,
-  UploadOutlined,
-  VideoCameraOutlined,
+  PieChartOutlined,
+  DesktopOutlined,
+  ContainerOutlined,
+  MailOutlined,
 } from "@ant-design/icons";
+const { SubMenu } = Menu;
 
 const Home = loadable(() => import("./Home"));
 const User = loadable(() => import("./User"));
@@ -55,7 +53,7 @@ export default class index extends Component {
           >
             <Col>
               <Avatar
-                size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+                size={64}
                 icon={
                   <img src="https://img1.baidu.com/it/u=3374147519,3268144078&fm=26&fmt=auto" />
                 }
@@ -67,25 +65,40 @@ export default class index extends Component {
               </h1>
             </Col>
           </Row>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={["4"]}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-              首页
+          <Menu
+            defaultSelectedKeys={["1"]}
+            defaultOpenKeys={["sub1"]}
+            mode="inline"
+            theme="dark"
+            inlineCollapsed={this.state.collapsed}
+          >
+            <Menu.Item key="1" icon={<PieChartOutlined />}>
+              Option 1
             </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              商品
+            <Menu.Item key="2" icon={<DesktopOutlined />}>
+              Option 2
             </Menu.Item>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-              用户管理
+            <Menu.Item key="3" icon={<ContainerOutlined />}>
+              Option 3
             </Menu.Item>
-            <Menu.Item key="4" icon={<BarChartOutlined />}>
-              角色管理
-            </Menu.Item>
-            <Menu.Item key="5" icon={<CloudOutlined />}>
-              图表图形
-            </Menu.Item>
-            <Menu.Item key="6" icon={<AppstoreOutlined />}>
-              订单管理
-            </Menu.Item>
+            <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
+              <Menu.Item key="5">Option 5</Menu.Item>
+              <Menu.Item key="6">Option 6</Menu.Item>
+              <Menu.Item key="7">Option 7</Menu.Item>
+              <Menu.Item key="8">Option 8</Menu.Item>
+            </SubMenu>
+            <SubMenu
+              key="sub2"
+              icon={<AppstoreOutlined />}
+              title="Navigation Two"
+            >
+              <Menu.Item key="9">Option 9</Menu.Item>
+              <Menu.Item key="10">Option 10</Menu.Item>
+              <SubMenu key="sub3" title="Submenu">
+                <Menu.Item key="11">Option 11</Menu.Item>
+                <Menu.Item key="12">Option 12</Menu.Item>
+              </SubMenu>
+            </SubMenu>
           </Menu>
         </Sider>
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
@@ -118,7 +131,7 @@ export default class index extends Component {
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
             <div
               className="site-layout-background"
-              style={{ padding: 24, textAlign: "center" }}
+              style={{ padding: 24 }}
             >
               <Switch>
                 <Route path="/home" component={Home} />
