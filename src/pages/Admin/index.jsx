@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import "./index.css";
 import { withRouter } from 'react-router-dom'
 
+
 import { Layout, Menu, Avatar, Col, Row, Button } from "antd";
 import {
   UserOutlined,
@@ -21,6 +22,8 @@ const Home = loadable(() => import("./Home"));
 const User = loadable(() => import("./User"));
 const Category = loadable(() => import("./Category"));
 const Product = loadable(() => import("./Product"));
+const Addupdata = loadable(() => import("./Product/Addupdata"));
+const Detail = loadable(() => import("./Product/Detail"));
 const Role = loadable(() => import("./Role"));
 
 const { SubMenu } = Menu;
@@ -129,7 +132,9 @@ class Admin extends Component {
                 <Route path="/home" component={Home} />
                 <Route path="/user" component={User} />
                 <Route path="/category" component={Category} />
-                <Route path="/product" component={Product} />
+                <Route path="/product" component={Product} exact />
+                <Route path="/product/addupdata" component={Addupdata} />
+                <Route path="/product/detail" component={Detail} />
                 <Route path="/role" component={Role} />
               </Switch>
 

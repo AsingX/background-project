@@ -1,28 +1,29 @@
 //引入常量
-import { GOODS } from "../constant";
+import { CATEGORY } from "../constant";
 
 //默认值
-const goodsDataInit = {
+const categoryDataInit = {
   status: 0,
   data: {
-    pageNum: 0,
-    total: 5,
-    pages: 1,
-    pageSize: 5,
-    list: [],
+    parentId: "0",
+    _id: "61849fea8ce9355b07f6398d",
+    name: "加载中···",
+    __v: 0,
   },
 };
 
-export default function goodsReducer(preState = goodsDataInit.data, action) {
+export default function categoryReducer(preState = categoryDataInit, action) {
   //解构获取action里的{type、data}
   const { type, data } = action;
 
   //判断进入的方法执行相对应的操作
   switch (type) {
-    case GOODS:
+    case CATEGORY:
       console.log(data);
       return (preState = { ...data.data });
     default:
       return preState;
   }
 }
+
+

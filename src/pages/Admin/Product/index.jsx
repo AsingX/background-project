@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { Card, Select, Input, Button, Icon, Table, Spin, Pagination } from 'antd'
+import { Card, Select, Input, Button, Table, Spin } from 'antd'
 import { connect } from 'react-redux'
 import { goodsAsync, searchAsync } from '../../../redux/actions/goods'
 import { updateStatusAsync } from '../../../redux/actions/updateStatus'
-
-import { NavLink } from 'react-router-dom'
 
 const { Option } = Select
 class Product extends Component {
@@ -18,9 +16,9 @@ class Product extends Component {
             searchValue: '',
             searchModel: false,
             page: 0,
-            spin: true
         }
     }
+
 
     onChangeSelect = (e) => {
         this.setState({
@@ -62,7 +60,6 @@ class Product extends Component {
     onClickShelves = (id) => {
         let { page, selectValue, searchValue } = this.state
         let status = this.showShelves(id)
-        console.log(page);
         this.props.updateStatusAsync({ productId: id, status: 1 })
 
         if (status === 1) {
@@ -84,8 +81,17 @@ class Product extends Component {
 
     }
 
+    onGotoDetail = (id, url) => {
+        const { goodsData } = this.props
+        let arr = goodsData.list.filter((item) => {
+            return item._id === id
+        })
+
+        this.props.history.push({ pathname: url, state: arr })
+    }
+
+
     showShelves = (id) => {
-        console.log(id);
         const { goodsData } = this.props
         let arr = goodsData.list.filter((item) => {
             return item._id === id
@@ -138,11 +144,12 @@ class Product extends Component {
                 {
                     width: 100,
                     title: '操作',
-                    render: () => {
+                    dataIndex: '_id',
+                    render: (_id) => {
                         return (
                             <>
-                                <NavLink to="/a" >详情</NavLink><br />
-                                <NavLink to="/b" >修改</NavLink>
+                                <a onClick={this.onGotoDetail.bind(this, _id, "/product/detail")}> 详情</a><br />
+                                <a onClick={this.onGotoDetail.bind(this, _id, "/product/addupdata")}> 修改</a>
                             </>
                         )
                     },
@@ -164,23 +171,31 @@ class Product extends Component {
                     onChange={this.onChangeInputSearchValue}
                     style={{ width: 150, float: 'left', margin: "0 15px" }} />
                 <Button type="primary" onClick={this.onClickSearch} style={{ float: 'left' }}>搜索</Button>
-                <Button type="primary" style={{ float: 'right' }}>添加商品</Button>
+                <Button type="primary" onClick={() => {
+                    this.props.history.push("/product/detail")
+                }} style={{ float: 'right' }}>添加商品</Button>
             </>
         )
     }
 
+    componentWillMount() {
+        this.setState({
+            page: 1
+        })
+    }
+
     render() {
-        console.log(111, this.props.goodsData.list.length);
         return (
-            <Spin tip="Loading..." spinning={!this.props.goodsData.list.length}>
+            <Spin tip="Loading..." spinning={!this.props.goodsData.pageNum}>
                 <Card title={this.cardTitle()}>
                     <Table
                         bordered
                         rowKey="_id"
                         pagination={{
-                            defaultCurrent: this.props.goodsData.pageNum,
+                            defaultCurrent: this.state.page,
                             total: this.props.goodsData.pages * 10,
-                            onChange: this.onChangePage
+                            onChange: this.onChangePage,
+                            showQuickJumper: true
                         }}
                         dataSource={this.props.goodsData.list}
                         columns={this.state.columns} />

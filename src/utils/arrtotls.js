@@ -1,4 +1,4 @@
-function arrFilter(data, frame, value) {
+function arrFilter(data, value) {
   //筛选数据
   return (arr = data.filter(function (item) {
     return item.frame == value;
