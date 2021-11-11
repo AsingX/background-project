@@ -21,6 +21,7 @@ class Addupdata extends Component {
             cascaderValue: [],
             richTextEditorValue: '',
             imgs: [],
+            deleteImg: []
         }
     }
     arrToObj = () => {
@@ -41,12 +42,27 @@ class Addupdata extends Component {
     }
 
     onFinish = (value) => {
+        if (this.state.deleteImg.length > 0) {
+            this.state.deleteImg.forEach((item) => {
+                postAxios('/manage/img/delete',
+                    '/api1',
+                    item,
+                    (data) => {
+
+                    }
+                )
+            })
+        }
+
         this.setState({
             richTextEditorValue: this.Child.getDetail(),
-            imgs: this.pw.current.getImgs()
+            imgs: this.pw.current.getImgs(),
+            deleteImg: []
         })
         const { cascaderValue, richTextEditorValue, imgs } = this.state
-        if (cascaderValue[0] === undefined) {
+        const { state } = this.props.location
+        console.log(state);
+        if (cascaderValue[0] == undefined) {
             value.pCategoryId = this.props.location.state[0].pCategoryId
             value.categoryId = this.props.location.state[0].categoryId
         } else {
@@ -56,25 +72,48 @@ class Addupdata extends Component {
         value.imgs = imgs
         value.detail = richTextEditorValue
         console.log(value);
-        postAxios('manage/product/add',
-            '/api1',
-            value,
-            (data) => {
-            }
-        )
-        if (cascaderValue[0] === undefined) {
 
+        if (state === undefined) {
+            postAxios('manage/product/add',
+                '/api1',
+                value,
+                (data) => {
+                    this.props.history.push('/product')
+                }
+
+            )
         } else {
+            value._id = state[0]._id
+            postAxios('manage/product/update',
+                '/api1',
+                value,
+                (data) => {
+                    this.props.history.push('/product')
+                }
+            )
 
         }
 
-
     }
-
+    deleteImg = (value) => {
+        this.state.deleteImg.push(value)
+        this.setState({
+            deleteImg: [...this.state.deleteImg]
+        })
+    }
+    onCallback = () => {
+        this.props.history.push('/product')
+    }
     onFinishFailed = () => {
 
     }
 
+    textInit = () => {
+        if (this.props.location.state !== undefined) {
+            return this.props.location.state[0].detail
+        }
+        return ''
+    }
     renderItem = () => {
         return (<>
         </>)
@@ -83,7 +122,7 @@ class Addupdata extends Component {
     cardTitle = () => {
         return (
             <>
-                <a style={{ float: "left" }}><LeftCircleTwoTone style={{ fontSize: 30 }} /></a>
+                <a onClick={this.onCallback} style={{ float: "left" }}><LeftCircleTwoTone style={{ fontSize: 30 }} /></a>
                 <h1 style={{ float: "left", margin: "0 15px" }}>商品详情</h1>
             </>
         )
@@ -154,14 +193,17 @@ class Addupdata extends Component {
                         <Form.Item
                             label="商品图片"
                         >
-                            <Upload ref={this.pw} imgs={this.state.imgs} goods={this.props.location.state} />
+                            <Upload ref={this.pw}
+                                imgs={this.state.imgs}
+                                goods={this.props.location.state}
+                                deleteImg={this.deleteImg} />
                         </Form.Item>
                         <Form.Item
                             labelCol={{ span: 2 }}
                             wrapperCol={{ span: 20 }}
                             label="商品详情"
                         >
-                            <RichTextEditor onRef={c => this.Child = c} />
+                            <RichTextEditor onRef={c => this.Child = c} detail={this.textInit()} />
                         </Form.Item>
 
                         <Form.Item wrapperCol={{ offset: 0, span: 1 }}>

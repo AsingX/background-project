@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 import { Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
+
 class Demo extends React.Component {
 
     static propTypes = {
@@ -49,13 +50,16 @@ class Demo extends React.Component {
         return this.state.fileList.map(item => item.response.data.name)
     }
 
-    onChange = ({ fileList: newFileList, fileList: file }) => {
+
+    onRemove = (value) => {
+        console.log(value);
+        this.props.deleteImg({ name: value.name })
+    }
+
+    onChange = ({ fileList: newFileList, fileList: file, }) => {
         this.setState({
             fileList: newFileList
         });
-
-
-        console.log(newFileList);
     };
 
     onPreview = async file => {
@@ -71,6 +75,7 @@ class Demo extends React.Component {
         image.src = src;
         const imgWindow = window.open(src);
         imgWindow.document.write(image.outerHTML);
+
     };
 
     render() {
@@ -85,6 +90,7 @@ class Demo extends React.Component {
                         name='image'
                         onChange={this.onChange}
                         onPreview={this.onPreview}
+                        onRemove={this.onRemove}
                     >
                         {this.state.fileList.length < 5 && '+ Upload'}
                     </Upload>
