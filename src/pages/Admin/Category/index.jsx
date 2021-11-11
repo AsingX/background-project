@@ -101,7 +101,8 @@ class Category extends Component {
         this.props.updateCategoryAsync(obj)
         this.props.categoryAsync("list?parentId=0")
         this.setState({
-            updataChildren: false
+            updataChildren: false,
+            updataValue: ''
         })
     }
     onCancelUpdata = () => {

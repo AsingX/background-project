@@ -3,6 +3,7 @@ import { Card, Select, Input, Button, Table, Spin } from 'antd'
 import { connect } from 'react-redux'
 import { goodsAsync, searchAsync } from '../../../redux/actions/goods'
 import { updateStatusAsync } from '../../../redux/actions/updateStatus'
+import { categoryAsync } from '../../../redux/actions/category'
 
 const { Option } = Select
 class Product extends Component {
@@ -81,12 +82,29 @@ class Product extends Component {
 
     }
 
+    arrToObj = () => {
+        let arr = []
+        const { categoryData } = this.props
+        for (let key in categoryData) {
+            arr.push(categoryData[key])
+        }
+        arr.forEach((item) => {
+            item.isLeaf = false
+        })
+        return arr
+    }
+
     onGotoDetail = (id, url) => {
         const { goodsData } = this.props
         let arr = goodsData.list.filter((item) => {
             return item._id === id
         })
-
+        let arrId = this.arrToObj()
+        arrId.forEach((item) => {
+            if (item._id === arr[0].pCategoryId) {
+                arr[0].categoryName = item.name
+            }
+        })
         this.props.history.push({ pathname: url, state: arr })
     }
 
@@ -101,6 +119,7 @@ class Product extends Component {
 
     componentDidMount() {
         this.props.goodsAsync(1)
+        this.props.categoryAsync('list?parentId=0')
         this.setState({
             page: 1,
             searchModel: false,
@@ -172,7 +191,7 @@ class Product extends Component {
                     style={{ width: 150, float: 'left', margin: "0 15px" }} />
                 <Button type="primary" onClick={this.onClickSearch} style={{ float: 'left' }}>搜索</Button>
                 <Button type="primary" onClick={() => {
-                    this.props.history.push("/product/detail")
+                    this.props.history.push("/product/addupdata")
                 }} style={{ float: 'right' }}>添加商品</Button>
             </>
         )
@@ -205,5 +224,5 @@ class Product extends Component {
     }
 }
 
-export default connect((state) => ({ goodsData: state.goods }),
-    { goodsAsync, searchAsync, updateStatusAsync })(Product)
+export default connect((state) => ({ goodsData: state.goods, categoryData: state.category }),
+    { goodsAsync, searchAsync, updateStatusAsync, categoryAsync })(Product)

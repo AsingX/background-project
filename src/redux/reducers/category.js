@@ -3,7 +3,6 @@ import { CATEGORY } from "../constant";
 
 //默认值
 const categoryDataInit = {
-  status: 0,
   data: {
     parentId: "0",
     _id: "61849fea8ce9355b07f6398d",
