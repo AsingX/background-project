@@ -1,0 +1,123 @@
+//临时存放
+
+
+<Menu
+              defaultSelectedKeys={["1"]}
+              defaultOpenKeys={["sub1"]}
+              mode="inline"
+              theme="dark"
+            >
+              <Menu.Item
+                key="1"
+                icon={<HomeOutlined />}
+                onClick={this.onPath.bind(this, "/home")}
+              >
+                首页
+              </Menu.Item>
+              <SubMenu key="sub6" icon={<AreaChartOutlined />} title="商品">
+                <Menu.Item
+                  icon={<BarsOutlined />}
+                  key="61"
+                  onClick={this.onPath.bind(this, "/category")}
+                >
+                  品类管理
+                </Menu.Item>
+                <Menu.Item
+                  icon={<ToolOutlined />}
+                  key="62"
+                  onClick={this.onPath.bind(this, "/product")}
+                >
+                  商品管理
+                </Menu.Item>
+              </SubMenu>
+              <Menu.Item
+                key="3"
+                icon={<UserOutlined />}
+                onClick={this.onPath.bind(this, "/user")}
+              >
+                用户管理
+              </Menu.Item>
+
+              <Menu.Item
+                key="4"
+                icon={<SafetyOutlined />}
+                onClick={this.onPath.bind(this, "/role")}
+              >
+                角色管理
+              </Menu.Item>
+              <SubMenu key="sub5" icon={<AreaChartOutlined />} title="图表图形">
+                <Menu.Item icon={<BarChartOutlined />} key="51">
+                  柱形图
+                </Menu.Item>
+                <Menu.Item icon={<LineChartOutlined />} key="52">
+                  折线图
+                </Menu.Item>
+                <Menu.Item icon={<PieChartOutlined />} key="53">
+                  饼图
+                </Menu.Item>
+              </SubMenu>
+            </Menu>
+
+
+            [
+        {
+          title: "首页",
+          icon: <HomeOutlined />,
+          path: "/home",
+          children: [],
+        },
+        {
+          title: "商品",
+          icon: <AreaChartOutlined />,
+          children: [
+            {
+              title: "品类管理",
+              icon: <BarsOutlined />,
+              path: "/category",
+              children: [],
+            },
+            {
+              title: "商品管理",
+              icon: <ToolOutlined />,
+              path: "/product",
+              children: [],
+            },
+          ],
+        },
+        {
+          title: "用户管理",
+          icon: <UserOutlined />,
+          path: "/user",
+          children: [],
+        },
+        {
+          title: "角色管理",
+          icon: <SafetyOutlined />,
+          path: "/role",
+          children: [],
+        },
+        {
+          title: "图形图表",
+          icon: <HomeOutlined />,
+          children: [
+            {
+              title: "柱形图",
+              icon: <BarChartOutlined />,
+              path: "/",
+              children: [],
+            },
+            {
+              title: "折线图",
+              icon: <LineChartOutlined />,
+              path: "/",
+              children: [],
+            },
+            {
+              title: "饼图",
+              icon: <PieChartOutlined />,
+              path: "/",
+              children: [],
+            },
+          ],
+        },
+      ]

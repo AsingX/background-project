@@ -1,9 +1,30 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-export default class index extends Component {
-    render() {
-        return (
-            <h1>我是User</h1>
-        )
-    }
+import UserList from "./components/userList";
+
+import CreateUser from "./components/createUser";
+
+import { getUserAsync } from "../../../redux/actions/user";
+
+import { connect } from "react-redux";
+
+class Index extends Component {
+
+
+  render() {
+    return (
+      <>
+        <div style={{ borderBottom: "1px solid ", padding: "10px 0" }}>
+          <CreateUser></CreateUser>
+        </div>
+        <div style={{ padding: "20px 0" }}>
+          <UserList></UserList>
+        </div>
+      </>
+    );
+  }
 }
+
+export default connect((state) => ({ user: state.user }), { getUserAsync })(
+  Index
+);

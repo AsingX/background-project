@@ -1,6 +1,10 @@
 import loadable from "@loadable/component";
 import React, { Component } from "react";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+
+import { FrontendAuth } from "./FrontendAuth";
+import { routerConfig } from "./router";
+
 //引入点击事件
 
 //路由的懒加载
@@ -14,9 +18,10 @@ export default class Root extends Component {
       <>
         <HashRouter>
           <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/home" component={Home} />
-           
+            <FrontendAuth config={routerConfig} />
+            {/* <Route path="/login" component={Login} />
+            <Route path="/home" component={Home} /> */}
+
             {/* <Redirect to="/login"></Redirect> */}
           </Switch>
         </HashRouter>

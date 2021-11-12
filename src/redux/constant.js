@@ -7,3 +7,9 @@ export const DECREMENT = "decrement";
 export const ADD_PERSON = "add_person";
 
 export const LOGIN = "login";
+
+//获取用户信息
+export const USERDATA = "userData";
+
+//获取角色信息
+export const ROLEDATA = "roleData";

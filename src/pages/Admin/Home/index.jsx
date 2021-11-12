@@ -12,13 +12,13 @@ class index extends Component {
             {" "}
             <Card title="访问量" style={{ height: "250px", width: "300px" }}>
               <h1 style={{ fontSize: "40px" }}>9527</h1>
-              <img src="/img/tongjitu.jpg" />
+              <img src="/img/tongjitu.jpg" alt="" />
             </Card>
           </Col>
           <Col>
             <Card title="处理次数" style={{ height: "250px", width: 300 }}>
               <h1 style={{ fontSize: "40px" }}>97414</h1>
-              <img src="/img/tongjitu2.jpg" />
+              <img src="/img/tongjitu2.jpg" alt="" />
             </Card>
           </Col>
           <Col>
@@ -37,7 +37,7 @@ class index extends Component {
           </Col>
         </Row>
 
-        <h3 style ={{margin:"8px"}} >访问记录</h3>
+        <h3 style={{ margin: "8px" }}>访问记录</h3>
         <Table></Table>
       </div>
     );
