@@ -5,7 +5,7 @@ import "./index.css";
 import { withRouter } from "react-router-dom";
 
 import recursionMenu from "../../utils/menuData";
-import { getCookie } from "../../utils/cookies";
+import { getCookie, deleteCookie } from "../../utils/cookies";
 
 import { Layout, Menu, Avatar, Col, Row, Button } from "antd";
 
@@ -22,11 +22,14 @@ import {
 } from "@ant-design/icons";
 
 const { SubMenu } = Menu;
-
 const Home = loadable(() => import("./Home"));
 const User = loadable(() => import("./User"));
 const Category = loadable(() => import("./Category"));
 const Product = loadable(() => import("./Product"));
+
+const Addupdata = loadable(() => import("./Product/Addupdata"));
+const Detail = loadable(() => import("./Product/Detail"));
+
 const Role = loadable(() => import("./Role"));
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -136,11 +139,12 @@ class index extends Component {
         ],
       },
     ];
-    const jurisdiction = JSON.parse(getCookie("__config_center_token")).role
-      .menus;
+    if (getCookie("__config_center_token")) {
+      const jurisdiction = JSON.parse(getCookie("__config_center_token")).role
+        .menus;
 
-    this.setState({ treeData: recursionMenu(jurisdiction, data) });
-    console.log(jurisdiction);
+      this.setState({ treeData: recursionMenu(jurisdiction, data) });
+    }
   }
 
   render() {
@@ -223,7 +227,16 @@ class index extends Component {
                   <span>欢迎,aaa</span>
                 </Col>
                 <Col>
-                  <Button type="link"> 退出</Button>
+                  <Button
+                    type="link"
+                    onClick={() => {
+                      deleteCookie("__config_center_token");
+                      this.props.history.push("/login");
+                    }}
+                  >
+                    {" "}
+                    退出
+                  </Button>
                 </Col>
               </Row>
               <hr style={{ background: "#58dc58", color: "#58dc58" }} />
@@ -255,8 +268,10 @@ class index extends Component {
                   <Route path="/home" component={Home} />
                   <Route path="/user" component={User} />
                   <Route path="/category" component={Category} />
-                  <Route path="/product" component={Product} />
+                  <Route path="/product" component={Product} exact />
                   <Route path="/role" component={Role} />
+                  <Route path="/product/detail" component={Detail} />
+                  <Route path="/product/addupdata" component={Addupdata} />
                 </Switch>
               </div>
             </Content>

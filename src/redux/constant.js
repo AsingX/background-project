@@ -13,3 +13,10 @@ export const USERDATA = "userData";
 
 //获取角色信息
 export const ROLEDATA = "roleData";
+export const GOODS = "goods";
+export const UPDATE_STATUS = "updateStatus";
+export const CATEGORY = "category";
+export const ADD_CATEGORY = "addCategory";
+export const CATEGORY_CHILDREN = "categoryChildren";
+export const UPDATE_CATEGORY = "updateCategory";
+
